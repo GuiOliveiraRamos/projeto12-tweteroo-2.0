@@ -11,6 +11,13 @@ app.get("/tweets", (req, res) => {
   if (tweets.lenght === 0) {
     res.send([]);
   }
+  const limitarTweets = tweets.slice(0, 10);
+  const showTweets = limitarTweets.map((t) => ({
+    username: t.username,
+    tweet: t.tweet,
+  }));
+
+  res.send(showTweets);
 });
 
 const PORT = 5000;
