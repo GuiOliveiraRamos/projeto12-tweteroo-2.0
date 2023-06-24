@@ -25,12 +25,12 @@ app.get("/tweets", (req, res) => {
 app.post("/sign-up", (req, res) => {
   const { username, avatar } = req.body;
 
-  if (!username || !avatar) {
-    return res.sendStatus(422);
+  if (!username || !avatar || avatar !== "" || username !== "") {
+    return res.status(400).send("Todos os campos são obrigatórios!");
   }
 
   users.push({ username, avatar });
-  res.send("Usuário cadastrado!");
+  res.status(201).send("Usuário cadastrado!");
 });
 
 app.post("/tweets", (req, res) => {
@@ -39,8 +39,11 @@ app.post("/tweets", (req, res) => {
   if (!verificarUsuario) {
     return res.status(401).send("UNAUTHORIZED");
   }
+  if (!username || !tweet || tweet !== "" || username !== "") {
+    return res.status(400).send("Todos os campos são obrigatórios!");
+  }
   tweets.push({ username, tweet });
-  res.send("OK");
+  res.status(201).send("OK");
 });
 
 const PORT = 5000;
