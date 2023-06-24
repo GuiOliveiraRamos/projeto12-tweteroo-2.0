@@ -9,7 +9,7 @@ let users = [];
 let tweets = [];
 
 app.get("/tweets", (req, res) => {
-  if (tweets.lenght === 0) {
+  if (tweets.length === 0) {
     res.send([]);
   }
   const limitarTweets = tweets.slice(0, 10);
@@ -25,7 +25,7 @@ app.get("/tweets", (req, res) => {
 app.post("/sign-up", (req, res) => {
   const { username, avatar } = req.body;
 
-  if (!username || !avatar || avatar !== "" || username !== "") {
+  if (!username || !avatar) {
     return res.status(400).send("Todos os campos são obrigatórios!");
   }
 
@@ -39,7 +39,7 @@ app.post("/tweets", (req, res) => {
   if (!verificarUsuario) {
     return res.status(401).send("UNAUTHORIZED");
   }
-  if (!username || !tweet || tweet !== "" || username !== "") {
+  if (!username || !tweet) {
     return res.status(400).send("Todos os campos são obrigatórios!");
   }
   tweets.push({ username, tweet });
